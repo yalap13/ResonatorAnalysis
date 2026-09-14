@@ -305,8 +305,16 @@ class File:
         return out
 
     def __str__(self) -> str:
-        out = f"parameters : {self.list_params()},"
-        out += f" mean frequency = {np.mean(self.vna_frequency.range)}"
+        out = ""
+        if isinstance(self.path, str):
+            path_parts = self.path.split("/")
+        else:
+            path_parts = self.path.parts
+        fdl = [part for part in path_parts if "FDL" in part]
+        if len(fdl) != 0:
+            sample = path_parts[path_parts.index(fdl[0]) - 1]
+            out += f" {sample}, {fdl[0]}, "
+        out += f"mean frequency = {np.mean(self.vna_frequency.range)}"
         return out
 
     def __repr__(self) -> str:
