@@ -17,6 +17,7 @@ from .util import (
     convert_magphase_to_complex,
     convert_complex_to_magphase,
     load_graph_data,
+    data_path,
 )
 
 from .parameters import Parameter, NullParameter
@@ -41,6 +42,7 @@ __all__ = [
     "convert_complex_to_magphase",
     "convert_magphase_to_complex",
     "load_graph_data",
+    "data_path",
     "Parameter",
     "NullParameter",
     "Dataset",

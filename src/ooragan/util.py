@@ -1,8 +1,10 @@
 import numpy as np
 import pandas as pd
 import re
+import os
 
 from datetime import datetime
+from pathlib import Path
 from numpy.typing import NDArray, ArrayLike
 
 
@@ -123,3 +125,22 @@ def level_phase(phase: ArrayLike, deg: bool = False) -> ArrayLike:
     pointB = unwrapped_phase[-1]
     slope = np.linspace(pointA, pointB, len(unwrapped_phase))
     return unwrapped_phase - slope
+
+
+def data_path() -> Path:
+    """Helper function to return the path for the data folder."""
+    if os.name == "posix":
+        if os.path.exists(Path.home() / "data"):
+            return (Path.home() / "data").resolve()
+        elif os.path.exists(Path.home() / "Data"):
+            return (Path.home() / "Data").resolve()
+        else:
+            raise NotImplementedError(
+                "Cannot find data path automatically. Input path manually."
+            )
+    elif os.name == "nt":
+        return Path("D:/")
+    else:
+        raise NotImplementedError(
+            "Cannot find data path automatically. Input path manually."
+        )
